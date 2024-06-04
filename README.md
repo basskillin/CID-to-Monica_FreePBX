@@ -1,12 +1,12 @@
 # FreePBX_CID-to-Monica
 This approach allows you to include the calling number ($thenumber) dynamically in the content field of your API request to Monica CRM. Adjust the content message and any other fields as needed based on your application's requirements and Monica CRM API specifications.
 
-<<Requirement>>
+<< Requirement >>
    FreePBX,
    Monica CRM,
    Monica Bearer authentication
    
 
-<<INSTALL>>
+<< INSTALL >>
    In the FreePBX GUI Go to <ADMIN/CID Superfecta> under name click "Defalt" look for Send to URL and Enable it. 
     In FreePBX CLI Command or Filezilla edit < /var/www/html/admin/modules/superfecta/sources/source-Send_to_URL.module > Copy past code in [source-Send_to_URL.module](https://github.com/basskillin/CID-to-Monica_FreePBX/blob/main/source-Send_to_URL.module). if all went well it should work. 
