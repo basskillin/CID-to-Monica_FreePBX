@@ -9,4 +9,4 @@ This approach allows you to include the calling number ($thenumber) dynamically 
 
 <<INSTALL>>
    In the FreePBX GUI Go to <ADMIN/CID Superfecta> under name click "Defalt" look for Send to URL and Enable it. 
-    In FreePBX CLI Command or Filezilla edit < /var/www/html/admin/modules/superfecta/sources/source-Send_to_URL.module > Copy past code with [source-Send_to_URL.module](https://github.com/basskillin/CID-to-Monica_FreePBX/blob/main/source-Send_to_URL.module). if all went well it should work. 
+    In FreePBX CLI Command or Filezilla edit < /var/www/html/admin/modules/superfecta/sources/source-Send_to_URL.module > Copy past code in [source-Send_to_URL.module](https://github.com/basskillin/CID-to-Monica_FreePBX/blob/main/source-Send_to_URL.module). if all went well it should work. 
