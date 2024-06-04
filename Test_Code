@@ -1,0 +1,9 @@
+curl -X POST https://app.monicahq.com/api/calls \
+-u YOUR_USERNAME:YOUR_PASSWORD \
+-H "Authorization: Bearer YOUR_BEARER_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{
+    "content": "He called, we had fun.",
+    "contact_id": 3,   // Specific contact_id as required. Pick a contact in Monica to Use. 
+    "called_at": "2018-02-02"
+}'
