@@ -1,0 +1,59 @@
+<?php
+
+class Send_to_URL extends superfecta_base {
+
+    public $description = "This source will send the CID number and the CID name to an URL for external processing. The URL you enter will be sent with the actual values substituted for [NAME] and [NUMBER] but otherwise UNMODIFIED.";
+    public $version_requirement = "2.11";
+    public $source_param = array(
+        'URL_address' => array(
+            'description' => 'Specify a URL to send CID/CNAM data to. Use the format \'http://url.org/calls\' where the data will be sent in the body.',
+            'type' => 'textarea',
+            'default' => "YOUR_API_LINK_HERE"
+        ),
+        'Bearer_token' => array(
+            'description' => 'Specify the Bearer token for authentication.',
+            'type' => 'text',
+            'default' => 'YOUR_BEARER_TOKEN_HERE'
+        )
+    );
+
+    function post_processing($cache_found, $winning_source, $first_caller_id, $run_param, $thenumber) {
+
+        if (($run_param['URL_address'] != '') && ($first_caller_id != '')) {
+
+            // Prepare the data for the POST request
+            $content = "Incoming call from {$first_caller_id} ({$thenumber}). He called, we had fun.";
+
+            $postData = array(
+                'content' => $content,
+                'contact_id' => 3,  // Specific contact_id as required. Pick a contact in Monica to Use.
+                'called_at' => date('Y-m-d')  // Assuming current date, adjust if needed
+            );
+
+            $jsonData = json_encode($postData);
+
+            // Use cURL to send the POST request with Bearer token
+            $ch = curl_init($run_param['URL_address']);
+            $headers = array(
+                "Authorization: Bearer " . $run_param['Bearer_token'],
+                "Content-Type: application/json"
+            );
+
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                $this->DebugPrint("cURL error: " . curl_error($ch));
+            } else {
+                $this->DebugPrint("Response: " . $response);
+            }
+
+            curl_close($ch);
+        }
+    }
+}
+?>
